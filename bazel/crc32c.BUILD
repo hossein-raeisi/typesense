@@ -62,8 +62,8 @@ cc_library(
         "include/crc32c/crc32c.h",
     ],
     copts = select({
-        "@//bazel/config:brpc_with_sse42": ["-msse4.2"],
-        "//conditions:default": [],
+        "@//bazel/config:brpc_with_sse42": ["-msse4.2", "-march=native"],
+        "//conditions:default": ["-march=native"],
     }),
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],

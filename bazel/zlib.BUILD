@@ -97,6 +97,7 @@ cc_library(
         "//conditions:default": [
             "-Wno-unused-variable",
             "-Wno-implicit-function-declaration",
+            "-march=native",
         ],
     }),
     includes = ["zlib/include/"],

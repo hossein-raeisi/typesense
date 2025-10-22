@@ -5,8 +5,8 @@ cmake_policy(SET CMP0074 NEW)
 cmake_policy(SET CMP0003 NEW)
 
 set(USE_SANTINIZER OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -Wno-unused-parameter -Werror=return-type -O2 -g -DNDEBUG")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Wno-unused-parameter -Werror=return-type -std=c++17 -O0 -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -Wno-unused-parameter -Werror=return-type -O2 -g -DNDEBUG -march=native")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Wno-unused-parameter -Werror=return-type -std=c++17 -O0 -g -march=native")
 set(DEP_ROOT_DIR ${CMAKE_SOURCE_DIR}/external-${CMAKE_SYSTEM_NAME})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
@@ -21,6 +21,9 @@ endif()
 
 if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
     set(CMAKE_CPP_FLAGS "${CMAKE_CPP_FLAGS} -mcpu=native")
+    # Override -march=native with -mcpu=native for ARM
+    string(REPLACE "-march=native" "-mcpu=native" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    string(REPLACE "-march=native" "-mcpu=native" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
 endif()
 
 # will be overridden from command line during build

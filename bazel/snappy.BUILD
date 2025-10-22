@@ -51,6 +51,7 @@ cc_library(
         "-fno-exceptions",
         "-Wno-sign-compare",
         "-Wno-shift-negative-value",
+        "-march=native",
     ],
     includes = ["."],
     visibility = ["//visibility:public"],
